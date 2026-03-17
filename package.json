@@ -13,5 +13,19 @@
         "laravel-vite-plugin": "^2.0.0",
         "tailwindcss": "^4.0.0",
         "vite": "^7.0.7"
+    },
+    "dependencies": {
+        "@inertiajs/inertia": "^0.11.1",
+        "@inertiajs/inertia-vue3": "^0.6.0",
+        "@mdi/font": "^7.4.47",
+        "@mdi/js": "^7.4.47",
+        "@vitejs/plugin-vue": "^6.0.5",
+        "pinia": "^3.0.4",
+        "sass": "^1.98.0",
+        "vue": "^3.5.30",
+        "vue-loader": "^17.3.1",
+        "vue-router": "^4.6.4",
+        "vue3-perfect-scrollbar": "^2.0.0",
+        "vuetify": "^4.0.1"
     }
 }
