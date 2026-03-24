@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-main>
-
       <div class="login-container">
         <div class="background-slider">
           <transition name="fade">
@@ -32,9 +31,9 @@
               <img :src="imagen" width="200px" class="team-img" />
             </v-card-title>
             <v-card-text>
-              <v-form @submit.prevent="submitLogin">
-                <v-text-field v-model="username" :rules="emailRules" label="Correo Electrónico / Usuario" class="mt-1 mb-4"
-                  required density="comfortable" hide-details="auto" variant="outlined" color="primary" rounded />
+              <v-form @submit.prevent="login">
+                <v-text-field v-model="username" :rules="emailRules" label="Email / Usuario" class="mt-1 mb-4" required
+                  density="comfortable" hide-details="auto" variant="outlined" color="primary" rounded />
 
                 <v-text-field v-model="password" :rules="passwordRules" label="Contraseña" required
                   density="comfortable" variant="outlined" color="primary" hide-details="auto" rounded
@@ -58,19 +57,24 @@
 </template>
 
 <script setup>
+import axios from "@/plugins/axios";
+import Swal from "sweetalert2";
 import { ref, onMounted } from "vue"
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
-const email = ref("")
+const router = useRouter();
+const auth = useAuthStore();
+const username = ref("")
 const emailRules = ref([
   v => !!v || 'Se requiere usuario o correo electrónico',
-  //v => (v && v.length <= 10) || 'Password must be less than 10 characters'
 ]);
 const password = ref("")
 const showPassword = ref(false)
 const passwordRules = ref([
   v => !!v || 'Se requiere contraseña',
-  //v => (v && v.length <= 10) || 'Password must be less than 10 characters'
 ]);
+const loading = ref(false);
 
 const currentSlide = ref(0)
 
@@ -105,15 +109,33 @@ onMounted(() => {
   }, 6000)
 })
 
-function submitLogin() {
-  console.log(email.value, password.value)
-}
+const login = async () => {
+  loading.value = true;
+
+  try {
+    await auth.login({
+      usuario: username.value,
+      password: password.value
+    });
+    router.push("/");
+  } catch (error) {
+    Swal.fire({
+      scrollbarPadding: false,
+      icon: "error",
+      title: error.response?.data?.error || "Error",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+    });
+  }
+};
+
 </script>
 
 <style scoped>
 /* CONTENEDOR */
 .login-container {
-  position: relative;
+  /* position: relative; */
   height: 100vh;
   width: 100%;
   overflow: hidden;

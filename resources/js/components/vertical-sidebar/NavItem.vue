@@ -9,13 +9,14 @@ const props = defineProps({ item: Object, level: Number });
     :href="item.type === 'external' ? item.to : ''"
     rounded
     class="mb-1"
-    color="secondary"
+    color="primary"
     :disabled="item.disabled"
     :target="item.type === 'external' ? '_blank' : ''"
+    exact
   >
     <!---If icon-->
     <template v-slot:prepend>
-      <v-icon>{{ props.item.icon }}</v-icon>
+      <v-icon class="ml-n1 mr-n5">{{ props.item.icon }}</v-icon>
     </template>
     <v-list-item-title>{{ item.title }}</v-list-item-title>
     <!---If Caption-->

@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar elevation="0" height="80">
+    <v-app-bar :class="!customizer.mini_sidebar ? 'appbar' : 'appbar75'" app elevation="0" height="62">
         <v-btn class="hidden-md-and-down text-secondary" color="lightsecondary" icon rounded="sm" variant="flat"
             @click.stop="customizer.SET_MINI_SIDEBAR(!customizer.mini_sidebar)" size="small">
             <v-icon>mdi-menu</v-icon>
@@ -9,6 +9,7 @@
             <v-icon>mdi-menu</v-icon>
         </v-btn>
 
+        <v-chip class="ml-3" color="primary"> {{ $route.meta.title }}</v-chip>
         <!-- search mobile -->
         <!-- <v-btn class="hidden-lg-and-up text-secondary ml-3" color="lightsecondary" icon rounded="sm" variant="flat"
             size="small" @click="searchbox">
@@ -42,10 +43,10 @@
                     <v-icon>mdi-bell</v-icon>
                 </v-btn>
             </template>
-            <v-sheet rounded="md" width="330" elevation="12">
-                <NotificationDD />
-            </v-sheet>
-        </v-menu> -->
+<v-sheet rounded="md" width="330" elevation="12">
+    <NotificationDD />
+</v-sheet>
+</v-menu> -->
 
         <!-- ---------------------------------------------- -->
         <!-- User Profile -->
@@ -55,22 +56,29 @@
                 <v-btn class="profileBtn text-primary" color="lightprimary" variant="flat" rounded="pill"
                     v-bind="props">
                     <v-avatar size="30" class="mr-2 py-2">
-                        <img src="https://cdn.vuetifyjs.com/images/john.png" alt="Julia" />
+                        <img :src="'https://api.dicebear.com/9.x/initials/svg?seed=' + user?.nombre_cliente"
+                            alt="Julia" />
                     </v-avatar>
                     <v-icon>mdi-cog-outline</v-icon>
                 </v-btn>
             </template>
             <v-sheet rounded="md" width="330" elevation="12">
-                <!-- <ProfileDD /> -->
+                <ProfileDD />
             </v-sheet>
         </v-menu>
     </v-app-bar>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useCustomizerStore } from '@/stores/customizer';
+import { useAuthStore } from '../stores/auth';
 
+//COMPONENTS
+import ProfileDD from '@/components/vertical-header/ProfileDD.vue';
 
-
+//CONST
+const authStore = useAuthStore();
 const customizer = useCustomizerStore();
+
+const user = computed(() => authStore.user);
 </script>

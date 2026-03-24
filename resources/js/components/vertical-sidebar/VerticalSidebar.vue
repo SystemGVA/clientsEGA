@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer location="left" v-model="customizer.Sidebar_drawer" elevation="0" rail-width="75" mobile-breakpoint="lg"
+    <v-navigation-drawer left v-model="customizer.Sidebar_drawer" elevation="0" rail-width="75" mobile-breakpoint="lg"
         app class="leftSidebar" :rail="customizer.mini_sidebar" expand-on-hover>
         <div class="pa-5">
             <Logo />
@@ -18,7 +18,7 @@
             </div>
         </perfect-scrollbar>
         <!-- <template #append>
-            <v-list-item class="ma-2" link nav prepend-icon="mdi-cog-outline" title="Settings" />
+             <v-chip color="inputBorder" size="small">{{ appVersion }}</v-chip>
         </template> -->
     </v-navigation-drawer>
 </template>
@@ -35,13 +35,14 @@ const customizer = useCustomizerStore();
 const sidebarMenu = ref([
     { header: 'Dashboard' },
     {
-        title: 'Default',
+        title: 'General',
+        //subCaption: 'Default Dashboard',
         icon: 'mdi-view-dashboard-outline',
-        to: '/dashboard/default'
+        to: '/'
     },
     { divider: true },
-    { header: 'Pages' },
-    {
+    { header: 'Paginas' },
+    /* {
         title: 'Authentication',
         icon: 'KeyIcon',
         to: '/auth',
@@ -57,61 +58,27 @@ const sidebarMenu = ref([
                 to: '/register'
             }
         ]
-    },
+    }, */
     {
-        title: 'Error 404',
-        icon: 'BugIcon',
-        to: '/error'
+        title: 'Mis Casos',
+        icon: 'mdi-clipboard-list-outline',
+        to: '/mycases'
     },
-    { divider: true },
-    { header: 'Utilities' },
-    {
+   /*  {
         title: 'Typography',
         icon: 'TypographyIcon',
         to: '/utils/typography'
     },
-    {
-        title: 'Shadows',
-        icon: 'ShadowIcon',
-        to: '/utils/shadows'
-    },
-    {
-        title: 'Colors',
-        icon: 'mdi-palette',
-        to: '/utils/colors'
-    },
 
-    {
-        title: 'Icons',
-        icon: 'WindmillIcon',
-        to: '/forms/radio',
-        children: [
-            {
-                title: 'Tabler Icons',
-                icon: 'CircleIcon',
-                to: '/icons/tabler'
-            },
-            {
-                title: 'Material Icons',
-                icon: 'CircleIcon',
-                to: '/icons/material'
-            }
-        ]
-    },
-    { divider: true },
-    {
-        title: 'Sample Page',
-        icon: 'BrandChromeIcon',
-        to: '/starter'
-    },
     {
         title: 'Documentation',
         icon: 'HelpIcon',
         to: 'https://codedthemes.gitbook.io/berry-vuetify/',
         type: 'external'
-    }
+    } */
 ])
 
 const appVersion = import.meta.env.VITE_APP_VERSION;
 
 </script>
+<style></style>
