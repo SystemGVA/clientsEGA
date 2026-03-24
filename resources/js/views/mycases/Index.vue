@@ -1,12 +1,12 @@
 <template>
   <v-card variant="flat" rounded="md" class="px-4 py-3 mb-4">
     <v-row class="align-center">
-      <v-col cols="12" md="4">
+      <v-col cols="12" :md="mdAndDown ? '':'4'">
         <v-text-field color="primary" variant="outlined" density="compact" hide-details label="Buscar"
           v-model="filtros.buscar">
-          <template #prepend>
-            <v-menu bottom left rounded="xl" :close-on-content-click="false" :nudge-width="350" offset-y
-              max-width="350px">
+          <template  v-if="mdAndDown" #prepend>
+            <v-menu rounded="xl" :close-on-content-click="false" :nudge-width="350" max-width="350px"
+              offset-y>
               <template v-slot:activator="{ props }">
                 <v-btn color="primary" size="small" icon v-bind="props">
                   <v-icon>mdi-filter</v-icon>
@@ -20,36 +20,55 @@
                         <strong class="primary--text">FILTROS</strong>
                       </small>
                     </v-col>
+                    <v-col cols="12" class="py-1">
+                      <v-select color="primary" variant="outlined" density="compact" hide-details label="Materia"
+                        clearable chips :items="conceptoStore.materias" item-title="conc_nombre" item-value="conc_id"
+                        v-model="filtros.materia" />
+                    </v-col>
+                    <v-col cols="12" class="py-1">
+                      <v-select color="primary" variant="outlined" density="compact" hide-details label="Estado"
+                        :items="lEstado" chips v-model="filtros.estado" />
+                    </v-col>
+                    <v-col cols="12" class="py-1">
+                      <v-chip-group v-model="filtros.listas" column multiple color="primary">
+                        <v-chip text="Encargos" size="small" variant="outlined" filter value="encargos" />
+                        <v-chip text="Casos" size="small" variant="outlined" filter value="casos" />
+                      </v-chip-group>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-sheet>
             </v-menu>
           </template>
-        </v-text-field>
-      </v-col>
-      <v-col md="3" cols="12">
-        <v-select color="primary" variant="outlined" density="compact" hide-details label="Materia" clearable chips
-          :items="conceptoStore.materias" item-title="conc_nombre" item-value="conc_id" v-model="filtros.materia" />
-      </v-col>
-      <v-col md="2" cols="12">
-        <v-chip-group v-model="filtros.listas" column multiple color="primary">
-          <v-chip text="Encargos" size="small" variant="outlined" filter value="encargos" />
-          <v-chip text="Casos" size="small" variant="outlined" filter value="casos" />
-        </v-chip-group>
-        <!-- <v-btn color="primary" size="small" icon @click="getCasos">
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn> -->
-      </v-col>
-      <v-col md="3" cols="12">
-        <v-select color="primary" variant="outlined" density="compact" hide-details label="Estado" :items="lEstado" chips
-          v-model="filtros.estado">
-          <template #append>
+          <template  v-if="mdAndDown" #append>
             <v-btn color="primary" size="small" icon @click="getCasos" :loading="loading">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </template>
-        </v-select>
+        </v-text-field>
       </v-col>
+      <template  v-if="!mdAndDown">
+        <v-col md="3" cols="12">
+          <v-select color="primary" variant="outlined" density="compact" hide-details label="Materia" clearable chips
+            :items="conceptoStore.materias" item-title="conc_nombre" item-value="conc_id" v-model="filtros.materia" />
+        </v-col>
+        <v-col md="2" cols="12">
+          <v-chip-group v-model="filtros.listas" column multiple color="primary">
+            <v-chip text="Encargos" size="small" variant="outlined" filter value="encargos" />
+            <v-chip text="Casos" size="small" variant="outlined" filter value="casos" />
+          </v-chip-group>
+        </v-col>
+        <v-col md="3" cols="12">
+          <v-select color="primary" variant="outlined" density="compact" hide-details label="Estado" :items="lEstado"
+            chips v-model="filtros.estado">
+            <template #append>
+              <v-btn color="primary" size="small" icon @click="getCasos" :loading="loading">
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+            </template>
+          </v-select>
+        </v-col>
+      </template>
     </v-row>
   </v-card>
   <v-card rounded="md" elevation="0" class="pa-4">
@@ -74,8 +93,8 @@
 </div>
 <v-divider />
 <div class="mt-1"> -->
-    <v-data-table :headers="headers" :items="items" height="calc(100vh - 280px)" fixed-header multi-sort :loading="loading" color="primary"
-      mobile-breakpoint="md" @click:row="VIEW_CASE">
+    <v-data-table :headers="headers" :items="items" height="calc(100vh - 280px)" fixed-header multi-sort
+      :loading="loading" color="primary" mobile-breakpoint="md" @click:row="VIEW_CASE">
       <template v-slot:item.titulo="{ item }">
         <small>{{ item.titulo }}</small>
       </template>
@@ -93,11 +112,15 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useDisplay } from 'vuetify';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useConceptoStore } from '@/stores/concepto';
+
 import axios from "@/plugins/axios";
 
+
+const { mdAndDown } = useDisplay();
 const router = useRouter();
 
 const authStore = useAuthStore();

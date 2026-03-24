@@ -34,18 +34,29 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 
 import AppBar from '@/components/AppBar.vue'
 import NavigationDrawer from '@/components/vertical-sidebar/VerticalSidebar.vue'
 import { useCustomizerStore } from '@/stores/customizer';
 import { useConceptoStore } from '@/stores/concepto';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const customizer = useCustomizerStore();
 const conceptoStore = useConceptoStore();
 
 onMounted(() => {
+  //document.title = `${route.meta.title } - CLIEGA`;
   conceptoStore.LOAD_MATERIA({ conc_prefijo: 5 });
 });
-
+/* watch(
+  () => route.meta.title,
+  (title) => {
+    document.title = title
+      ? `${title} - CLIEGA`
+      : "CLIEGA";
+  }
+); */
 </script>

@@ -1,12 +1,9 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Dashboard SPA</v-card-title>
+      <v-card-title>Dashboard CLIEGA</v-card-title>
       <v-card-text>
-        Esto es un ejemplo de SPA monolítica con Vue + Vuetify + Laravel
-          <v-btn color="primary" block rounded size="large" @click="logout">
-                  Ingresar
-                </v-btn>
+        Graficas sobre metricas importantes de casos y encargos
       </v-card-text>
     </v-card>
   </v-container>
