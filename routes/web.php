@@ -16,7 +16,14 @@ Route::prefix('/api')->middleware('auth:cliente')->group(function () {
     
     Route::prefix('/encargo')->group(function () {
         Route::get('/key/{id}', [App\Http\Controllers\CasosController::class, 'GET_INFORMACION_ENCARGO']);
-        Route::post('/actividad', [App\Http\Controllers\CasosController::class, 'GET_ACTIVITY_ENCARGO']);
+        Route::post('/activities', [App\Http\Controllers\CasosController::class, 'GET_ACTIVITY_ENCARGO']);
+        Route::post('/archives', [App\Http\Controllers\CasosController::class, 'GET_ARCHIVE_ENCARGO']);
+    });
+    Route::prefix('/expediente')->group(function () {
+        Route::get('/key/{id}', [App\Http\Controllers\CasosController::class, 'GET_INFORMACION_EXPEDIENTE']);
+        Route::get('/individuales/{expe_id}', [App\Http\Controllers\CasosController::class, 'GET_EXPEDIENTE_INDIVIDUALES']);
+        Route::post('/activities', [App\Http\Controllers\CasosController::class, 'GET_ACTIVITY_EXPEDIENTE']);
+        Route::post('/archives', [App\Http\Controllers\CasosController::class, 'GET_ARCHIVE_EXPEDIENTE']);
     });
 });
 

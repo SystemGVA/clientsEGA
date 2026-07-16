@@ -28,17 +28,20 @@
             </v-menu>
             <v-spacer></v-spacer>
         </v-card-title>
-        <v-card-text v-if="actividades">
-            <perfect-scrollbar class="mr-n2 pr-3 heightEncargo" :options="{ suppressScrollX: true }">
-                <v-alert style="font-size: 12pt" color="primary" class="text-center" variant="outlined"
-                    v-if="actividades.length == 0">
-                    <v-icon color="primary" size="50px">
-                        mdi-timeline-clock-outline
-                    </v-icon>
-                    <hr class="mt-2 mb-2" />
-                    NO HAY NINGUN ACTIVIDAD REGISTRADO POR EL MOMENTO
-                </v-alert>
-                <v-timeline v-else side="end" density="compact">
+        <v-card-text v-if="actividades" class="heightEncargo d-flex flex-column">
+            <div v-if="loading" class="flex-grow-1 d-flex align-center justify-center">
+                <v-progress-circular color="primary" indeterminate size="48" />
+            </div>
+            <v-alert style="font-size: 12pt" color="primary" class="text-center" variant="outlined"
+                v-else-if="actividades.length == 0">
+                <v-icon color="primary" size="50px">
+                    mdi-timeline-clock-outline
+                </v-icon>
+                <hr class="mt-2 mb-2" />
+                NO HAY NINGUN ACTIVIDAD REGISTRADO POR EL MOMENTO
+            </v-alert>
+            <perfect-scrollbar v-else class="mr-n2 pr-3 flex-grow-1" :options="{ suppressScrollX: true }">
+                <v-timeline side="end" density="compact">
                     <v-timeline-item class="ma-1" v-for="item in actividades" :key="item.acti_id" size="large">
                         <template v-slot:icon>
                             <v-tooltip location="bottom">
@@ -181,7 +184,7 @@ const props = defineProps({
 
 //DATA
 const actividades = ref([]);
-const loading = ref(false);
+const loading = ref(true);
 const TiempoTotal = ref('0M');
 const TiempoUsuarios = ref([]);
 const activityStatuses = [
@@ -280,13 +283,10 @@ const formatearFecha = (fecha) => {
 
 
 const GET_ACTIVIDADES = async () => {
-    console.log('Obteniendo actividades para encargo ID:', props.encargo.enca_id);
     if (!props.encargo?.enca_id) return;
-
-    loading.value = true;
-
+    loading.value = true;  
     try {
-        const res = await axios.post(`/api/encargo/actividad`, {
+        const res = await axios.post(`/api/encargo/activities`, {
             id: props.encargo.enca_id
         });
 
@@ -320,7 +320,7 @@ const revertirFormatoTiempo = (tiempoConvertido) => {
 
 <style scoped>
 .heightEncargo {
-    height: calc(100vh - 230px);
+    height: calc(100vh - 182px);
 }
 
 

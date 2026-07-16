@@ -82,21 +82,24 @@ const slides = [
   {
     title: "Asesoría legal cercana y estratégica",
     text: "Ofrecemos soluciones viables y seguras a través de un servicio integral, personalizado y guiado por nuestros valores: comunicación, compromiso, resolución y colaboración.",
-    image: "https://gamarrafirma.com/wp-content/uploads/2025/09/BANNER-1.webp",
+    image: "/img/BANNER-1.webp",
+    imageExt: "https://gamarrafirma.com/wp-content/uploads/2025/09/BANNER-1.webp",
     buton: "Conoce más",
     url: "https://gamarrafirma.com/nosotros/"
   },
   {
     title: "Un equipo legal sólido a tu servicio",
     text: "Nuestro equipo trabaja de forma articulada para brindar soluciones legales integrales, ágiles y estratégicas.",
-    image: "https://gamarrafirma.com/wp-content/uploads/2025/09/BANNER-3-1.webp",
+    image: "/img/BANNER-3-1.webp",
+    imageExt: "https://gamarrafirma.com/wp-content/uploads/2025/09/BANNER-3-1.webp",
     buton: "Leer más",
     url: "https://gamarrafirma.com/equipo/"
   },
   {
     title: "Respaldo internacional ",
     text: "Contamos con el respaldo de Lexincorp, una de las firmas más reconocidas en Centroamérica, con presencia en Guatemala, El Salvador, Honduras, Nicaragua y Costa Rica. Esta alianza potencia nuestra capacidad para atender operaciones legales transfronterizas con el mismo estándar de calidad.",
-    image: "https://gamarrafirma.com/wp-content/uploads/2025/08/BANNER-LEX.webp"
+    image: "/img/BANNER-LEX.webp",
+    imageExt: "https://gamarrafirma.com/wp-content/uploads/2025/08/BANNER-LEX.webp"
   }
 ]
 

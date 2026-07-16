@@ -69,7 +69,7 @@ class ExpedienteModel extends Model
 
     public function getEstadoTextoAttribute()
     {
-        switch ($this->enca_estado) {
+        switch ($this->expe_estado) {
             case ExpedienteModel::ESTADO_PROCESO:
                 return "PROCESO";
                 break;

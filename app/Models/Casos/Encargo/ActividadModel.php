@@ -57,6 +57,7 @@ class ActividadModel extends Model
         "acti_es_evento",
         "acti_fecha_last_reprog",
         "actividad_superior",
+        "acti_preview",
     ];
 
     public function getEstadoTextoAttribute()
@@ -74,6 +75,6 @@ class ActividadModel extends Model
 
    /*  public function relacion_archivos()
     {
-        return $this->hasMany(AnexoModel::class, 'acti_id')->where('anac_estado', 1);
+        return $this->hasMany(AnexoEnModel::class, 'acti_id')->where('anac_estado', 1);
     } */
 }
