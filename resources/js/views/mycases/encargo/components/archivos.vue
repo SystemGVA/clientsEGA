@@ -115,6 +115,10 @@ const GET_ARCHIVE = async () => {
 
 const showArchivActivity = (item) => {
     archivo_seleccionado.value = item.anac_id;
+
+    //TEMPORAL
+    const url = item.ruta;
+    window.open(url, '_blank');
 };
 
 defineExpose({

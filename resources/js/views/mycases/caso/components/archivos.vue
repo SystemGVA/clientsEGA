@@ -128,6 +128,10 @@ const GET_ARCHIVE = async () => {
 
 const showArchivActivity = (item) => {
     archivo_seleccionado.value = item.anex_exp_id;
+
+    //TEMPORAL
+    const url = item.ruta;
+    window.open(url, '_blank');
 };
 
 defineExpose({
