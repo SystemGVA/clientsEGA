@@ -88,6 +88,6 @@ class AnexoExModel extends Model
     {
         //$dominio = URL::to('/');
         $dominio = 'https://sisega.gamarrafirma.com';
-        return $dominio . '/storage/actividad/' . $this->anex_exp_ruta;
+        return $dominio . '/' . $this->anex_exp_ruta;
     }
 }
